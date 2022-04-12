@@ -134,7 +134,6 @@ export function GroupTasker({ navigation }) {
             >
                 <View style={Styles.ModalRoot}>
                     <View style={Styles.ModalContainer}>
-                        <Text style={Styles.InputHeader}>Draw groups and tasks</Text>
                         <Text style={Styles.InputHeader}>Group  size</Text>
                         <View style={Styles.NumberInputContainer}>
                             <Pressable

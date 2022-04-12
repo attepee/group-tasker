@@ -1,6 +1,7 @@
 import { Dimensions, StyleSheet } from 'react-native';
 
 const width = Dimensions.get('window').width;
+const height = Dimensions.get('window').height;
 
 export const Styles = StyleSheet.create({
     // Root
@@ -125,5 +126,41 @@ export const Styles = StyleSheet.create({
         width: ((width < 768) ? '90%' : '30%'),
         alignItems: 'center',
         justifyContent: 'center',
-    }
+    },
+    // FlatList
+    FlatList: {
+        width: '100%',
+        maxHeight: height * 0.8
+    },
+    ItemContainer: {
+        width: '100%',
+        flexDirection: "row",
+        justifyContent: 'center',
+        marginBottom: 10,
+    },
+    ItemTitleContainer: {
+        width: '80%',
+        borderStyle: 'solid',
+        borderWidth: 2,
+        borderColor: '#333',
+        borderBottomLeftRadius: 5,
+        borderTopLeftRadius: 5,
+        padding: 10
+    },
+    ItemTitle: {
+        fontSize: 20,
+        fontWeight: 'bold',
+        color: '#333',
+        textAlign: 'center'
+    },
+    ItemButton: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: '20%',
+        backgroundColor: '#333',
+        fontWeight: 'bold',
+        color: '#fff',
+        borderBottomRightRadius: 5,
+        borderTopRightRadius: 5
+    },
 });
