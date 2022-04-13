@@ -1,11 +1,19 @@
 # group-tasker
-Web app made with Expo and React native that allows users to create random groups from a list of participants and assign tasks to the created groups.
-
 ### NOTE!
->Very much WIP. As in the app does basically nothing right now.
+>Very much WIP.
 
-## Installing and building
+Web app made with Expo and React native that allows users to create random groups from a list of participants and assign tasks to the created groups. You can try it in [here](https://attepee.github.io/group-tasker/) 
 
-1. Clone the repository with `git clone <repository-here>`
+The app uses [React Navigation](https://reactnavigation.org/), [React Native Async Storage](https://react-native-async-storage.github.io/async-storage/), [react-native-uuid](https://www.npmjs.com/package/react-native-uuid) and [Entypo pictograms by Daniel Bruce](http://entypo.com/) from [react-native-vector-icons](https://www.npmjs.com/package/react-native-vector-icons)
+
+## Developing
+
+1. Fork the repository and clone it with `git clone <repository-here>`
 2. Navigate to `src` and run `npm install`
-3. Start the app with `expo start --web`
+3. Run `expo start --web` to start the development server
+
+## Deploying 
+
+1. Open `package.json`and edit the  `"homepage": "http://{username}.github.io/{repo-name}"`to include correct information for you
+2. run `npm run deploy`
+3. Setup Github Pages from the repository's settings
