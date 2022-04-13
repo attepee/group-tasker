@@ -66,6 +66,14 @@ export function GroupTasker({ navigation, route }) {
         setTasksToGroup();
     }
 
+    const cancelParticipantChanges = () => {
+        if(participants.length < 1) setParticipants([]);
+    };
+
+    const cancelTaskChanges = () => {
+        if(tasks.length < 1) setTasks([]);
+    };
+
     const setParticipantsToGroup = () => {
         let group = groups.filter(item => item.id == currentItemId)[0];
         let updatedGroup = {...group, participants: participants};
@@ -131,7 +139,7 @@ export function GroupTasker({ navigation, route }) {
                         <View style={Styles.ButtonContainer}>
                             <Pressable 
                                 style={[Styles.Button, Styles.ButtonHor, Styles.Cancel]}
-                                onPress={() => {setParticipantsModalVisible(!participantsModalVisible), setParticipants([])}}
+                                onPress={() => {setParticipantsModalVisible(!participantsModalVisible), cancelParticipantChanges()}}
                             >
                                 <Text style={Styles.ButtonText}>Cancel</Text>
                             </Pressable>
@@ -196,7 +204,7 @@ export function GroupTasker({ navigation, route }) {
                         <View style={Styles.ButtonContainer}>
                             <Pressable 
                                 style={[Styles.Button, Styles.ButtonHor, Styles.Cancel]}
-                                onPress={() => {setTasksModalVisible(!tasksModalVisible), setTasks([])}}
+                                onPress={() => {setTasksModalVisible(!tasksModalVisible), cancelTaskChanges()}}
                             >
                                 <Text style={Styles.ButtonText}>Cancel</Text>
                             </Pressable>
