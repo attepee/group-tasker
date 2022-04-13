@@ -68,7 +68,9 @@ export const Styles = StyleSheet.create({
         margin: 10
     },
     ItemInput: {
-        width: '80%'
+        width: '80%',
+        borderBottomLeftRadius: 5,
+        borderTopLeftRadius: 5
     },
     ItemInputButton: {
         justifyContent: 'center',
@@ -130,7 +132,7 @@ export const Styles = StyleSheet.create({
     // FlatList
     FlatList: {
         width: '100%',
-        maxHeight: height * 0.8
+        maxHeight: height * 0.4
     },
     ItemContainer: {
         width: '100%',
@@ -163,4 +165,12 @@ export const Styles = StyleSheet.create({
         borderBottomRightRadius: 5,
         borderTopRightRadius: 5
     },
+    // Misc
+    Header: {
+        width: '100%',
+        fontSize: 20,
+        fontWeight: 'bold',
+        color: '#333',
+        marginBottom: 10
+    }
 });

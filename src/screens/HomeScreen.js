@@ -3,6 +3,7 @@ import { FlatList, Pressable, Modal, Text, TextInput, View } from 'react-native'
 import { Entypo } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { v4 as uuidv4 } from 'uuid';
+import { useIsFocused } from '@react-navigation/native';
 
 import { Styles } from '../Styles';
 import { EmptyMsg } from '../components/EmptyMsg';
@@ -11,17 +12,18 @@ export function HomeScreen({ navigation }) {
     const [groups, setGroups] = useState([]);
     const [groupTitle, setGroupTitle] = useState();
     const [modalVisible, setModalVisible] = useState(false);
+    const isFocused = useIsFocused();
 
-    useEffect(() => {
+    useEffect(() => { if(isFocused) {
         getData();
-    },[]);
+    }},[useIsFocused]);
 
     useEffect(() => {
         storeData();
     },[groups]);
 
     const setGroup = () => {
-        setGroups([...groups, {id: uuidv4(), title: groupTitle}]);
+        setGroups([...groups, {id: uuidv4(), title: groupTitle, participants: [], tasks: []}]);
         storeData();
         setModalVisible(!modalVisible);
     };
@@ -29,7 +31,7 @@ export function HomeScreen({ navigation }) {
     const removeGroup = (id) => {
         let array = groups.filter(item => item.id !== id);
         setGroups(array);
-    }
+    };
 
     const getData = async () => {
         try {
@@ -39,7 +41,7 @@ export function HomeScreen({ navigation }) {
         catch(e) {
             console.log("Something went wrong while loading groups.");
         }
-    }
+    };
 
     const storeData = async () => {
         try {
@@ -48,7 +50,7 @@ export function HomeScreen({ navigation }) {
         catch (e) {
             onsole.log("Something went wrong while saving the groups.");
         }
-    }
+    };
 
     return (
         <View style={Styles.Root}>
@@ -70,12 +72,20 @@ export function HomeScreen({ navigation }) {
                             <View style={Styles.ItemContainer}>
                                 <Pressable
                                     style={Styles.ItemTitleContainer}
-                                    onPress={() => navigation.navigate("Group tasker")}>
+                                    onPress={() => navigation.navigate("Group tasker", {
+                                        groups: groups,
+                                        currentItemId: item.id,
+                                        currentItemTitle: item.title,
+                                        currentItemParticipants: item.participants,
+                                        currentItemTasks: item.tasks
+                                    })}
+                                >
                                     <Text style={Styles.ItemTitle}>{item.title}</Text>
                                 </Pressable>
                                 <Pressable
                                     style={Styles.ItemButton}
-                                    onPress={() => removeGroup(item.id)}>
+                                    onPress={() => removeGroup(item.id)}
+                                >
                                     <Entypo name="cross" size={20} color="white" />
                                 </Pressable>
                             </View>
