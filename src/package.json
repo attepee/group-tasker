@@ -1,7 +1,7 @@
 {
   "name": "group-tasker",
   "version": "1.0.0",
-  "homepage": "https://attepee.github.io/group-tasker",
+  "homepage": "http://attepee.github.io/group-tasker/",
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {
     "start": "expo start",
