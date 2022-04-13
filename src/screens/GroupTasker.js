@@ -43,10 +43,12 @@ export function GroupTasker({ navigation, route }) {
     const setStateGroupSize = (value) => {
         if (value <= 2) {
             setDecrementButtonState(true);
+            setIncrementButtonState(false);
             setGroupSize(2);
         }
         else if (value >= Math.floor(participants.length / 2)) {
             setIncrementButtonState(true);
+            setDecrementButtonState(false);
             setGroupSize(Math.floor(participants.length / 2));
         }
         else {
