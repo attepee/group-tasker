@@ -8,16 +8,22 @@ import { Styles } from '../Styles';
 import { EmptyMsg } from '../components/EmptyMsg';
 
 export function GroupTasker({ navigation, route }) {
+    // Groups
     const [groups, setGroups] = useState([]);
     const [currentItemId, setCurrentItemId] = useState();
     const [currentItemTitle, setCurrentItemTitle] = useState();
+    // Modals
     const [participantsModalVisible, setParticipantsModalVisible] = useState(false);
     const [tasksModalVisible, setTasksModalVisible] = useState(false);
     const [drawModalVisible, setDrawModalVisible] = useState(false);
+    // Group size
     const [groupSize, setGroupSize] = useState(2);
     const [decrementButtonState, setDecrementButtonState] = useState(true);
+    const [incrementButtonState, setIncrementButtonState] = useState(false);
+    // Participants
     const [participants, setParticipants] = useState([]);
     const [participantName, setParticipantName] = useState("");
+    // Tasks
     const [tasks, setTasks] = useState([]);
     const [taskTitle, setTaskTitle] = useState("");
 
@@ -33,59 +39,74 @@ export function GroupTasker({ navigation, route }) {
         storeData();
     },[groups]);
 
+    // Set the group size and limit to minimum of 2 and maximum of participants / 2
     const setStateGroupSize = (value) => {
         if (value <= 2) {
             setDecrementButtonState(true);
             setGroupSize(2);
         }
+        else if (value >= Math.floor(participants.length / 2)) {
+            setIncrementButtonState(true);
+            setGroupSize(Math.floor(participants.length / 2));
+        }
         else {
             setDecrementButtonState(false);
+            setIncrementButtonState(false);
             setGroupSize(value);
         }
     };
 
+    // Add a new participant to the array
     const setParticipant = () => {
         setParticipants([...participants, {id: uuidv4(), name: participantName}]);
         setParticipantName("");
     };
 
+    // Add a new task to the array
     const setTask = () => {
         setTasks([...tasks, {id: uuidv4(), title: taskTitle}]);
         setTaskTitle("");
     };
 
+    // Remove the selected participant from the array
     const removeParticipant = (id) => {
         let array = participants.filter(item => item.id !== id);
         setParticipants(array);
         setParticipantsToGroup();
     };
 
+    // Remove the selected task from the array
     const removeTask= (id) => {
         let array = tasks.filter(item => item.id !== id);
         setTasks(array);
         setTasksToGroup();
     }
 
+    // Cancel changes made to the participants list
     const cancelParticipantChanges = () => {
         if(participants.length < 1) setParticipants([]);
     };
 
+    // Cancel changes made to the tass list
     const cancelTaskChanges = () => {
         if(tasks.length < 1) setTasks([]);
     };
 
+    // Add the added participants to the currently selected group
     const setParticipantsToGroup = () => {
         let group = groups.filter(item => item.id == currentItemId)[0];
         let updatedGroup = {...group, participants: participants};
         groups.splice(groups.findIndex(item => item.id == currentItemId), 1, updatedGroup);
     };
 
+    // Add the added tasks to the currently selected group
     const setTasksToGroup = () => {
         let group = groups.filter(item => item.id == currentItemId)[0];
         let updatedGroup = {...group, tasks: tasks};
         groups.splice(groups.findIndex(item => item.id == currentItemId), 1, updatedGroup);
     }
 
+    // Store data in local storage as JSON
     const storeData = async () => {
         try {
             await AsyncStorage.setItem('@groups', JSON.stringify(groups));
@@ -280,6 +301,7 @@ export function GroupTasker({ navigation, route }) {
                                 value={groupSize}
                             />
                             <Pressable
+                            disabled={incrementButtonState}
                                 style={[Styles.NumberInputButton, Styles.NumberInputButtonRight]}
                                 onPress={() => setStateGroupSize(groupSize + 1)}
                             >

@@ -22,17 +22,20 @@ export function HomeScreen({ navigation }) {
         storeData();
     },[groups]);
 
+    // Add new group to the array
     const setGroup = () => {
         setGroups([...groups, {id: uuidv4(), title: groupTitle, participants: [], tasks: []}]);
         storeData();
         setModalVisible(!modalVisible);
     };
 
+    // Remove the selected group from the array
     const removeGroup = (id) => {
         let array = groups.filter(item => item.id !== id);
         setGroups(array);
     };
 
+    // Get and parse JSON data from the local storage
     const getData = async () => {
         try {
             const value = await AsyncStorage.getItem('@groups')
@@ -43,6 +46,7 @@ export function HomeScreen({ navigation }) {
         }
     };
 
+    // Store data in local storage as JSON
     const storeData = async () => {
         try {
             await AsyncStorage.setItem('@groups', JSON.stringify(groups));
@@ -93,7 +97,7 @@ export function HomeScreen({ navigation }) {
                     />
                 }
             </View>
-
+            {/* Group modal */}
             <Modal
                 animationType="slide"
                 transparent={true}
