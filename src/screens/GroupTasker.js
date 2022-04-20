@@ -28,16 +28,14 @@ export function GroupTasker({ navigation, route }) {
     const [taskTitle, setTaskTitle] = useState("");
 
     useEffect(() => {
-        setGroups(route.params.groups);
-        setCurrentItemId(route.params.currentItemId);
-        setCurrentItemTitle(route.params.currentItemTitle);
-        setParticipants(route.params.currentItemParticipants);
-        setTasks(route.params.currentItemTasks);
-    },[]);
-
-    useEffect(() => {
-        storeData();
-    },[groups]);
+        if (groups.length == 0) {
+            setGroups(route.params.groups);
+            setCurrentItemId(route.params.currentItemId);
+            setCurrentItemTitle(route.params.currentItemTitle);
+            setParticipants(route.params.currentItemParticipants);
+            setTasks(route.params.currentItemTasks);
+        }
+    });
 
     // Set the group size and limit to minimum of 2 and maximum of participants / 2
     const setStateGroupSize = (value) => {
@@ -99,6 +97,7 @@ export function GroupTasker({ navigation, route }) {
         let group = groups.filter(item => item.id == currentItemId)[0];
         let updatedGroup = {...group, participants: participants};
         groups.splice(groups.findIndex(item => item.id == currentItemId), 1, updatedGroup);
+        storeData();
     };
 
     // Add the added tasks to the currently selected group
@@ -106,6 +105,7 @@ export function GroupTasker({ navigation, route }) {
         let group = groups.filter(item => item.id == currentItemId)[0];
         let updatedGroup = {...group, tasks: tasks};
         groups.splice(groups.findIndex(item => item.id == currentItemId), 1, updatedGroup);
+        storeData();
     }
 
     // Store data in local storage as JSON
