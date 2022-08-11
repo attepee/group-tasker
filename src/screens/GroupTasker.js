@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { FlatList, Pressable, Modal, Text, TextInput, View } from 'react-native';
 import { Entypo } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import 'react-native-get-random-values';
 import { v4 as uuidv4 } from 'uuid';
 
 import { Styles } from '../Styles';
