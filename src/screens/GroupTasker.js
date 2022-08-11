@@ -57,6 +57,22 @@ export function GroupTasker({ navigation, route }) {
         }
     };
 
+    const checkInput = (text) => {
+        let modal = participantsModalVisible;
+
+        if (modal)
+            setParticipantName(text);
+        else
+            setTaskTitle(text);
+
+        if (/[a-ö]\s/g.test(text)) {
+            if (modal)
+                setParticipant();
+            else
+                setTask();
+        }
+    };
+
     // Add a new participant to the array
     const setParticipant = () => {
         setParticipants([...participants, {id: uuidv4(), name: participantName}]);
@@ -179,7 +195,7 @@ export function GroupTasker({ navigation, route }) {
                                 style={[Styles.Input, Styles.ItemInput]}
                                 value={participantName}
                                 placeholder="Enter name here"
-                                onChangeText={(text) => setParticipantName(text)}
+                                onChangeText={(text) => checkInput(text)}
                             />
                             <Pressable
                                 style={Styles.ItemInputButton}
@@ -244,7 +260,7 @@ export function GroupTasker({ navigation, route }) {
                                 style={[Styles.Input, Styles.ItemInput]}
                                 value={taskTitle}
                                 placeholder="Enter task here"
-                                onChangeText={(text) => setTaskTitle(text)}
+                                onChangeText={(text) => checkInput(text)}
                             />
                             <Pressable
                                 style={Styles.ItemInputButton}
