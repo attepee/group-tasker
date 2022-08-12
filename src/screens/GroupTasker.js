@@ -38,25 +38,6 @@ export function GroupTasker({ navigation, route }) {
         }
     });
 
-    // Set the group size and limit to minimum of 2 and maximum of participants / 2
-    const setStateGroupSize = (value) => {
-        if (value <= 2) {
-            setDecrementButtonState(true);
-            setIncrementButtonState(false);
-            setGroupSize(2);
-        }
-        else if (value >= Math.floor(participants.length / 2)) {
-            setIncrementButtonState(true);
-            setDecrementButtonState(false);
-            setGroupSize(Math.floor(participants.length / 2));
-        }
-        else {
-            setDecrementButtonState(false);
-            setIncrementButtonState(false);
-            setGroupSize(value);
-        }
-    };
-
     const checkInput = (text) => {
         let modal = participantsModalVisible;
 
@@ -97,7 +78,7 @@ export function GroupTasker({ navigation, route }) {
         let array = tasks.filter(item => item.id !== id);
         setTasks(array);
         setTasksToGroup();
-    }
+    };
 
     // Cancel changes made to the participants list
     const cancelParticipantChanges = () => {
@@ -123,7 +104,31 @@ export function GroupTasker({ navigation, route }) {
         let updatedGroup = {...group, tasks: tasks};
         groups.splice(groups.findIndex(item => item.id == currentItemId), 1, updatedGroup);
         storeData();
-    }
+    };
+
+    // Set the group size and limit to minimum of 2 and maximum of participants / 2
+    const setStateGroupSize = (value) => {
+        if (value <= 2) {
+            setDecrementButtonState(true);
+            setIncrementButtonState(false);
+            setGroupSize(2);
+        }
+        else if (value >= Math.floor(participants.length / tasks.length)) {
+            setIncrementButtonState(true);
+            setDecrementButtonState(false);
+            setGroupSize(Math.floor(participants.length / tasks.length));
+        }
+        else {
+            setDecrementButtonState(false);
+            setIncrementButtonState(false);
+            setGroupSize(value);
+        }
+    };
+
+    const drawTeams = () => {
+        setDrawModalVisible(!drawModalVisible)
+        // TODO: Implement team drawing here
+    };
 
     // Store data in local storage as JSON
     const storeData = async () => {
@@ -131,7 +136,7 @@ export function GroupTasker({ navigation, route }) {
             await AsyncStorage.setItem('@groups', JSON.stringify(groups));
         }
         catch (e) {
-            onsole.log("Something went wrong while saving the groups.");
+            onsole.log("Something went wrong while saving the groups: " + e);
         }
     };
 
@@ -169,9 +174,7 @@ export function GroupTasker({ navigation, route }) {
                 animationType="slide"
                 transparent={true}
                 visible={participantsModalVisible}
-                onRequestClose={() => {
-                    setParticipantsModalVisible(!participantsModalVisible);
-                }}
+                onRequestClose={() => {setParticipantsModalVisible(!participantsModalVisible);}}
             >
                 <View style={Styles.ModalRoot}>
                     <View style={Styles.ModalContainer}>
@@ -179,13 +182,19 @@ export function GroupTasker({ navigation, route }) {
                         <View style={Styles.ButtonContainer}>
                             <Pressable 
                                 style={[Styles.Button, Styles.ButtonHor, Styles.Cancel]}
-                                onPress={() => {setParticipantsModalVisible(!participantsModalVisible), cancelParticipantChanges()}}
+                                onPress={() => {
+                                    setParticipantsModalVisible(!participantsModalVisible),
+                                    cancelParticipantChanges()
+                                }}
                             >
                                 <Text style={Styles.ButtonText}>Cancel</Text>
                             </Pressable>
                             <Pressable
                                 style={[Styles.Button, Styles.ButtonHor, Styles.Confirm]}
-                                onPress={() => {setParticipantsModalVisible(!participantsModalVisible), setParticipantsToGroup()}}
+                                onPress={() => {
+                                    setParticipantsModalVisible(!participantsModalVisible),
+                                    setParticipantsToGroup()
+                                }}
                             >
                                 <Text style={Styles.ButtonText}>Save</Text>
                             </Pressable>
@@ -234,9 +243,7 @@ export function GroupTasker({ navigation, route }) {
                 animationType="slide"
                 transparent={true}
                 visible={tasksModalVisible}
-                onRequestClose={() => {
-                    setTasksModalVisible(!tasksModalVisible);
-                }}
+                onRequestClose={() => {setTasksModalVisible(!tasksModalVisible);}}
             >
                 <View style={Styles.ModalRoot}>
                     <View style={Styles.ModalContainer}>
@@ -244,13 +251,19 @@ export function GroupTasker({ navigation, route }) {
                         <View style={Styles.ButtonContainer}>
                             <Pressable 
                                 style={[Styles.Button, Styles.ButtonHor, Styles.Cancel]}
-                                onPress={() => {setTasksModalVisible(!tasksModalVisible), cancelTaskChanges()}}
+                                onPress={() => {
+                                    setTasksModalVisible(!tasksModalVisible),
+                                    cancelTaskChanges()
+                                }}
                             >
                                 <Text style={Styles.ButtonText}>Cancel</Text>
                             </Pressable>
                             <Pressable
                                 style={[Styles.Button, Styles.ButtonHor, Styles.Confirm]}
-                                onPress={() => {setTasksModalVisible(!tasksModalVisible), setTasksToGroup()}}
+                                onPress={() => {
+                                    setTasksModalVisible(!tasksModalVisible),
+                                    setTasksToGroup()
+                                }}
                             >
                                 <Text style={Styles.ButtonText}>Save</Text>
                             </Pressable>
@@ -299,13 +312,11 @@ export function GroupTasker({ navigation, route }) {
                 animationType="slide"
                 transparent={true}
                 visible={drawModalVisible}
-                onRequestClose={() => {
-                    setDrawModalVisible(!drawModalVisible);
-                }}
+                onRequestClose={() => {setDrawModalVisible(!drawModalVisible);}}
             >
                 <View style={Styles.ModalRoot}>
                     <View style={Styles.ModalContainer}>
-                        <Text style={Styles.InputHeader}>Group  size</Text>
+                        <Text style={Styles.InputHeader}>Team size</Text>
                         <View style={Styles.NumberInputContainer}>
                             <Pressable
                                 disabled={decrementButtonState}
@@ -320,7 +331,7 @@ export function GroupTasker({ navigation, route }) {
                                 value={groupSize}
                             />
                             <Pressable
-                            disabled={incrementButtonState}
+                                disabled={incrementButtonState}
                                 style={[Styles.NumberInputButton, Styles.NumberInputButtonRight]}
                                 onPress={() => setStateGroupSize(groupSize + 1)}
                             >
@@ -336,6 +347,7 @@ export function GroupTasker({ navigation, route }) {
                             </Pressable>
                             <Pressable
                                 style={[Styles.Button, Styles.ButtonHor, Styles.Confirm]}
+                                onPress={() => drawTeams()}
                             >
                                 <Text style={Styles.ButtonText}>Draw</Text>
                             </Pressable>
