@@ -1,7 +1,7 @@
 {
   "files": {
-    "app.js": "/group-tasker/static/js/app.90b977a8.chunk.js",
-    "app.js.map": "/group-tasker/static/js/app.90b977a8.chunk.js.map",
+    "app.js": "/group-tasker/static/js/app.bfe8237a.chunk.js",
+    "app.js.map": "/group-tasker/static/js/app.bfe8237a.chunk.js.map",
     "runtime~app.js": "/group-tasker/static/js/runtime~app.2dd5b7c7.js",
     "runtime~app.js.map": "/group-tasker/static/js/runtime~app.2dd5b7c7.js.map",
     "static/js/2.9ca120f4.chunk.js": "/group-tasker/static/js/2.9ca120f4.chunk.js",
@@ -29,6 +29,6 @@
   "entrypoints": [
     "static/js/runtime~app.2dd5b7c7.js",
     "static/js/2.9ca120f4.chunk.js",
-    "static/js/app.90b977a8.chunk.js"
+    "static/js/app.bfe8237a.chunk.js"
   ]
 }
