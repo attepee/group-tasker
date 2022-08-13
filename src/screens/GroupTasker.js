@@ -27,6 +27,8 @@ export function GroupTasker({ navigation, route }) {
     // Tasks
     const [tasks, setTasks] = useState([]);
     const [taskTitle, setTaskTitle] = useState("");
+    // Teams
+    const [teams, setTeams] = useState([]);
 
     useEffect(() => {
         if (groups.length == 0) {
@@ -35,6 +37,7 @@ export function GroupTasker({ navigation, route }) {
             setCurrentItemTitle(route.params.currentItemTitle);
             setParticipants(route.params.currentItemParticipants);
             setTasks(route.params.currentItemTasks);
+            setTeams(route.params.currentItemTeams);
         }
     });
 
@@ -54,7 +57,7 @@ export function GroupTasker({ navigation, route }) {
 
     // Add a new participant to the array
     const setParticipant = () => {
-        setParticipants([...participants, {id: uuidv4(), name: participantName}]);
+        setParticipants([...participants, {id: uuidv4(), name: participantName, selectedToTeam: false}]);
         setParticipantName("");
     };
 
@@ -123,10 +126,40 @@ export function GroupTasker({ navigation, route }) {
         }
     };
 
+    // Draw random teams and assign task and members
+    // TODO: handle extra participants who don't get a team during the drawing
+    // TODO: display teams in app
+    // TODO: revert participants selectedToTeam values to false so they can be drawn again
     const drawTeams = () => {
+        let selectedTeams = [];
+        let members = [];
+
+        for (let i = 0; i < tasks.length; i++) {
+            for (let j = 0; j < groupSize; j++) {
+                let selectableParticipants = participants.filter(obj => obj.selectedToTeam == false);
+                let r = Math.floor(Math.random() * selectableParticipants.length);
+                let selectedParticipant = selectableParticipants[r]
+                let participantIndex = participants.findIndex(obj => obj.id == selectedParticipant.id);
+                
+                members.push(selectableParticipants[r].name);
+                participants[participantIndex].selectedToTeam = true;
+            }
+            selectedTeams = [...selectedTeams, {title: tasks[i].title, members: members}];
+            members = [];
+        }
+        setTeams(selectedTeams);
+        setTeamsToGroup()
+
         setDrawModalVisible(!drawModalVisible)
-        // TODO: Implement team drawing here
     };
+
+    // Add the drawn teams to the currently selected group
+    const setTeamsToGroup = () => {
+        let group = groups.filter(item => item.id == currentItemId)[0];
+        let updatedGroup = {...group, teams: teams};
+        groups.splice(groups.findIndex(item => item.id == currentItemId), 1, updatedGroup);
+        storeData();
+    }
 
     // Store data in local storage as JSON
     const storeData = async () => {

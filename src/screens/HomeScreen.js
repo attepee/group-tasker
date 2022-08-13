@@ -25,7 +25,7 @@ export function HomeScreen({ navigation }) {
 
     // Add new group to the array
     const setGroup = () => {
-        setGroups([...groups, {id: uuidv4(), title: groupTitle, participants: [], tasks: []}]);
+        setGroups([...groups, {id: uuidv4(), title: groupTitle, participants: [], tasks: [], teams: []}]);
         storeData();
         setModalVisible(!modalVisible);
     };
@@ -82,7 +82,8 @@ export function HomeScreen({ navigation }) {
                                         currentItemId: item.id,
                                         currentItemTitle: item.title,
                                         currentItemParticipants: item.participants,
-                                        currentItemTasks: item.tasks
+                                        currentItemTasks: item.tasks,
+                                        currentItemTeams: item.teams
                                     })}
                                 >
                                     <Text style={Styles.ItemTitle}>{item.title}</Text>
