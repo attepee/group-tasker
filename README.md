@@ -2,7 +2,7 @@
 ### NOTE!
 >Not yet completely functional
 
-Web app made with Expo and React native that allows users to create random groups from a list of participants and assign tasks to the created groups. You can try it in [here](https://attepee.github.io/group-tasker/) 
+Web app made with Expo and React native that allows users to create random teams from a list of participants and assign tasks to the them. You can try it in [here](https://attepee.github.io/group-tasker/) 
 
 The app uses [React Navigation](https://reactnavigation.org/), [React Native Async Storage](https://react-native-async-storage.github.io/async-storage/), [react-native-uuid](https://www.npmjs.com/package/react-native-uuid), [react-native-get-random-values](https://www.npmjs.com/package/react-native-get-random-values) and [Entypo pictograms by Daniel Bruce](http://entypo.com/) from [react-native-vector-icons](https://www.npmjs.com/package/react-native-vector-icons)
 
