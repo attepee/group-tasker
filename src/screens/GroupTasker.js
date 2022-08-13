@@ -39,15 +39,13 @@ export function GroupTasker({ navigation, route }) {
     });
 
     const checkInput = (text) => {
-        let modal = participantsModalVisible;
-
-        if (modal)
+        if (participantsModalVisible)
             setParticipantName(text);
         else
             setTaskTitle(text);
 
         if (/[a-ö]\s/g.test(text)) {
-            if (modal)
+            if (participantsModalVisible)
                 setParticipant();
             else
                 setTask();
