@@ -128,7 +128,6 @@ export function GroupTasker({ navigation, route }) {
 
     // Draw random teams and assign task and members
     // TODO: handle extra participants who don't get a team during the drawing
-    // TODO: revert participants selectedToTeam values to false so they can be drawn again
     const drawTeams = () => {
         let selectedTeams = [];
         let members = [];
@@ -147,6 +146,10 @@ export function GroupTasker({ navigation, route }) {
             members = [];
         }
         setTeams(selectedTeams);
+
+        for (let i = 0; i < participants.length; i++) {
+            participants[i].selectedToTeam = false;
+        }
     };
 
     // Add the drawn teams to the currently selected group
@@ -373,7 +376,7 @@ export function GroupTasker({ navigation, route }) {
                                 <Text style={Styles.ButtonText}>Cancel</Text>
                             </Pressable>
                             <Pressable
-                                style={[Styles.Button, Styles.ButtonHorAlt, Styles.Confirm]}
+                                style={[Styles.Button, Styles.ButtonHorAlt, Styles.Continue]}
                                 onPress={() => drawTeams()}
                             >
                                 <Text style={Styles.ButtonText}>Draw</Text>
