@@ -1,6 +1,4 @@
-# group-tasker
-### NOTE!
->Not yet completely functional
+# Group-tasker
 
 Web app made with Expo and React native that allows users to create random teams from a list of participants and assign tasks to the them. You can try it in [here](https://attepee.github.io/group-tasker/) 
 
