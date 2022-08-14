@@ -45,7 +45,7 @@ export function GroupTasker({ navigation, route }) {
         else
             setTaskTitle(text);
 
-        if (/[a-ö]\s/g.test(text)) {
+        if (/[0-9A-Öa-ö]\s/g.test(text)) {
             if (participantsModalVisible)
                 setParticipant();
             else
