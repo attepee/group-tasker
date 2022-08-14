@@ -1,11 +1,11 @@
 {
   "files": {
-    "app.js": "/group-tasker/static/js/app.c856ec94.chunk.js",
-    "app.js.map": "/group-tasker/static/js/app.c856ec94.chunk.js.map",
+    "app.js": "/group-tasker/static/js/app.296d410d.chunk.js",
+    "app.js.map": "/group-tasker/static/js/app.296d410d.chunk.js.map",
     "runtime~app.js": "/group-tasker/static/js/runtime~app.0b2fccca.js",
     "runtime~app.js.map": "/group-tasker/static/js/runtime~app.0b2fccca.js.map",
-    "static/js/2.56920625.chunk.js": "/group-tasker/static/js/2.56920625.chunk.js",
-    "static/js/2.56920625.chunk.js.map": "/group-tasker/static/js/2.56920625.chunk.js.map",
+    "static/js/2.2e6dffe3.chunk.js": "/group-tasker/static/js/2.2e6dffe3.chunk.js",
+    "static/js/2.2e6dffe3.chunk.js.map": "/group-tasker/static/js/2.2e6dffe3.chunk.js.map",
     "fonts/AntDesign.ttf": "/group-tasker/./fonts/AntDesign.ttf",
     "fonts/Entypo.ttf": "/group-tasker/./fonts/Entypo.ttf",
     "fonts/Feather.ttf": "/group-tasker/./fonts/Feather.ttf",
@@ -24,11 +24,11 @@
     "index.html": "/group-tasker/index.html",
     "manifest.json": "/group-tasker/manifest.json",
     "serve.json": "/group-tasker/serve.json",
-    "static/js/2.56920625.chunk.js.LICENSE.txt": "/group-tasker/static/js/2.56920625.chunk.js.LICENSE.txt"
+    "static/js/2.2e6dffe3.chunk.js.LICENSE.txt": "/group-tasker/static/js/2.2e6dffe3.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime~app.0b2fccca.js",
-    "static/js/2.56920625.chunk.js",
-    "static/js/app.c856ec94.chunk.js"
+    "static/js/2.2e6dffe3.chunk.js",
+    "static/js/app.296d410d.chunk.js"
   ]
 }
