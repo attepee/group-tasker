@@ -115,7 +115,7 @@ export const Styles = StyleSheet.create({
         backgroundColor: '#25A9DA'
     },
     ButtonText: {
-        fontSize: 16,
+        fontSize: 14,
         fontFamily: 'sans-serif',
         fontWeight: 'bold',
         color: '#fff'
