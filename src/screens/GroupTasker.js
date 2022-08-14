@@ -127,7 +127,7 @@ export function GroupTasker({ navigation, route }) {
     };
 
     // Draw random teams and assign task and members
-    // TODO: handle extra participants who don't get a team during the drawing
+    // TODO: This could use some cleaning
     const drawTeams = () => {
         let selectedTeams = [];
         let members = [];
@@ -136,15 +136,25 @@ export function GroupTasker({ navigation, route }) {
             for (let j = 0; j < groupSize; j++) {
                 let selectableParticipants = participants.filter(obj => obj.selectedToTeam == false);
                 let r = Math.floor(Math.random() * selectableParticipants.length);
-                let selectedParticipant = selectableParticipants[r]
-                let participantIndex = participants.findIndex(obj => obj.id == selectedParticipant.id);
-                
+                let participantIndex = participants.findIndex(obj => obj.id == selectableParticipants[r].id);
+
                 members.push(selectableParticipants[r].name);
                 participants[participantIndex].selectedToTeam = true;
             }
             selectedTeams = [...selectedTeams, {title: tasks[i].title, members: members}];
             members = [];
         }
+        let selectableParticipants = participants.filter(obj => obj.selectedToTeam == false);
+        if (selectableParticipants.length > 0) {
+            for (let i = 0; i < selectableParticipants.length; i++) {
+                let r = Math.floor(Math.random() * selectedTeams.length);
+                let participantIndex = participants.findIndex(obj => obj.id == selectableParticipants[i].id);
+
+                selectedTeams[r].members.push(selectableParticipants[i].name);
+                participants[participantIndex].selectedToTeam = true;
+            }
+        }
+
         setTeams(selectedTeams);
 
         for (let i = 0; i < participants.length; i++) {
