@@ -195,7 +195,7 @@ export function GroupTasker({ navigation, route }) {
                     onPress={() => setDrawModalVisible(!drawModalVisible)}
                 >
                     <Text style={Styles.ButtonText}>
-                        <Entypo name="shuffle" size={16} color="white" /> Draw
+                        <Entypo name="shuffle" size={16} color="white" /> Teams
                     </Text>
                 </Pressable>
             </View>
@@ -208,7 +208,7 @@ export function GroupTasker({ navigation, route }) {
             >
                 <View style={Styles.ModalRoot}>
                     <View style={Styles.ModalContainer}>
-                        <Text style={Styles.InputHeader}>Add participants</Text>
+                        <Text style={Styles.InputHeader}>Add or remove participants</Text>
                         <View style={Styles.ButtonContainer}>
                             <Pressable 
                                 style={[Styles.Button, Styles.ButtonHor, Styles.Cancel]}
@@ -277,7 +277,7 @@ export function GroupTasker({ navigation, route }) {
             >
                 <View style={Styles.ModalRoot}>
                     <View style={Styles.ModalContainer}>
-                        <Text style={Styles.InputHeader}>Add tasks</Text>
+                        <Text style={Styles.InputHeader}>Add or remove tasks</Text>
                         <View style={Styles.ButtonContainer}>
                             <Pressable 
                                 style={[Styles.Button, Styles.ButtonHor, Styles.Cancel]}

@@ -65,7 +65,7 @@ export function HomeScreen({ navigation }) {
                     onPress={() => setModalVisible(!modalVisible)}
                 >
                     <Text style={Styles.ButtonText}>
-                        <Entypo name="users" size={16} color="white" /> New
+                        <Entypo name="users" size={16} color="white" /> New group
                     </Text>
                 </Pressable>
                 {(groups.length < 1) ? EmptyMsg("No groups yet...") :
@@ -110,7 +110,7 @@ export function HomeScreen({ navigation }) {
             >
                 <View style={Styles.ModalRoot}>
                     <View style={Styles.ModalContainer}>
-                        <Text style={Styles.InputHeader}>Group Tasker title</Text>
+                        <Text style={Styles.InputHeader}>Title</Text>
                         <TextInput
                             style={[Styles.Input, Styles.TextInput]}
                             placeholder="Enter title here"
