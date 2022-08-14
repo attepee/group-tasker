@@ -135,7 +135,7 @@ export const Styles = StyleSheet.create({
     // FlatList
     FlatList: {
         width: '100%',
-        maxHeight: height * 0.4
+        maxHeight: height * 0.7
     },
     ItemContainer: {
         width: '100%',
