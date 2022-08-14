@@ -98,6 +98,9 @@ export const Styles = StyleSheet.create({
     ButtonHor: {
         width: '48%',
     },
+    ButtonHorAlt: {
+        width: '32%',
+    },
     ButtonVert: {
         width: '100%',
         marginBottom: 10
@@ -152,6 +155,11 @@ export const Styles = StyleSheet.create({
     ItemTitle: {
         fontSize: 20,
         fontWeight: 'bold',
+        color: '#333',
+        textAlign: 'center'
+    },
+    ItemText: {
+        fontSize: 16,
         color: '#333',
         textAlign: 'center'
     },

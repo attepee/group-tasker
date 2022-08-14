@@ -128,7 +128,6 @@ export function GroupTasker({ navigation, route }) {
 
     // Draw random teams and assign task and members
     // TODO: handle extra participants who don't get a team during the drawing
-    // TODO: display teams in app
     // TODO: revert participants selectedToTeam values to false so they can be drawn again
     const drawTeams = () => {
         let selectedTeams = [];
@@ -148,9 +147,6 @@ export function GroupTasker({ navigation, route }) {
             members = [];
         }
         setTeams(selectedTeams);
-        setTeamsToGroup()
-
-        setDrawModalVisible(!drawModalVisible)
     };
 
     // Add the drawn teams to the currently selected group
@@ -371,18 +367,39 @@ export function GroupTasker({ navigation, route }) {
                         </View>
                         <View style={Styles.ButtonContainer}>
                             <Pressable 
-                                style={[Styles.Button, Styles.ButtonHor, Styles.Cancel]}
+                                style={[Styles.Button, Styles.ButtonHorAlt, Styles.Cancel]}
                                 onPress={() => setDrawModalVisible(!drawModalVisible)}
                             >
                                 <Text style={Styles.ButtonText}>Cancel</Text>
                             </Pressable>
                             <Pressable
-                                style={[Styles.Button, Styles.ButtonHor, Styles.Confirm]}
+                                style={[Styles.Button, Styles.ButtonHorAlt, Styles.Confirm]}
                                 onPress={() => drawTeams()}
                             >
                                 <Text style={Styles.ButtonText}>Draw</Text>
                             </Pressable>
+                            <Pressable
+                                style={[Styles.Button, Styles.ButtonHorAlt, Styles.Confirm]}
+                                onPress={() => {setTeamsToGroup(), setDrawModalVisible(!drawModalVisible)}}
+                            >
+                                <Text style={Styles.ButtonText}>Save</Text>
+                            </Pressable>
                         </View>
+                        {(teams.length < 1) ? EmptyMsg("No teams yet...") :
+                            <FlatList
+                                style={Styles.FlatList}
+                                data={teams}
+                                keyExtractor={(item, index) => index.toString()}
+                                renderItem={({ item }) =>
+                                    <View style={Styles.ItemContainer}>
+                                        <Pressable style={Styles.ItemTitleContainer}>
+                                            <Text style={Styles.ItemTitle}>{item.title}</Text>
+                                            <Text style={Styles.ItemText}>{item.members.map(obj => obj + "\n")}</Text>
+                                        </Pressable>
+                                    </View>
+                                }
+                            />
+                        }
                     </View>
                 </View>
             </Modal>
