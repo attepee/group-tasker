@@ -18,9 +18,7 @@ export function GroupTasker({ navigation, route }) {
     const [tasksModalVisible, setTasksModalVisible] = useState(false);
     const [drawModalVisible, setDrawModalVisible] = useState(false);
     // Group size
-    const [groupSize, setGroupSize] = useState(2);
-    const [decrementButtonState, setDecrementButtonState] = useState(true);
-    const [incrementButtonState, setIncrementButtonState] = useState(false);
+    const [groupSize, setGroupSize] = useState(0);
     // Participants
     const [participants, setParticipants] = useState([]);
     const [participantName, setParticipantName] = useState("");
@@ -108,22 +106,14 @@ export function GroupTasker({ navigation, route }) {
     };
 
     // Set the group size and limit to minimum of 2 and maximum of participants / 2
-    const setStateGroupSize = (value) => {
-        if (value <= 2) {
-            setDecrementButtonState(true);
-            setIncrementButtonState(false);
-            setGroupSize(2);
-        }
-        else if (value >= Math.floor(participants.length / tasks.length)) {
-            setIncrementButtonState(true);
-            setDecrementButtonState(false);
-            setGroupSize(Math.floor(participants.length / tasks.length));
-        }
-        else {
-            setDecrementButtonState(false);
-            setIncrementButtonState(false);
-            setGroupSize(value);
-        }
+    const calculateGroupSize = () => {
+        let pLenght = participants.length;
+        let tLenght = tasks.length;
+
+        if (pLenght.length == 0 || tLenght == 0)
+            setGroupSize(0);
+        else
+            setGroupSize(Math.floor(pLenght / tLenght));
     };
 
     // Draw random teams and assign task and members
@@ -202,7 +192,10 @@ export function GroupTasker({ navigation, route }) {
                 </Pressable>
                 <Pressable
                     style={[Styles.Button, Styles.ButtonVert, Styles.Continue]}
-                    onPress={() => setDrawModalVisible(!drawModalVisible)}
+                    onPress={() => {
+                        setDrawModalVisible(!drawModalVisible),
+                        calculateGroupSize()
+                    }}
                 >
                     <Text style={Styles.ButtonText}>
                         <Entypo name="shuffle" size={16} color="white" /> Teams
@@ -233,7 +226,8 @@ export function GroupTasker({ navigation, route }) {
                                 style={[Styles.Button, Styles.ButtonHor, Styles.Confirm]}
                                 onPress={() => {
                                     setParticipantsModalVisible(!participantsModalVisible),
-                                    setParticipantsToGroup()
+                                    setParticipantsToGroup(),
+                                    calculateGroupSize()
                                 }}
                             >
                                 <Text style={Styles.ButtonText}>Save</Text>
@@ -302,7 +296,8 @@ export function GroupTasker({ navigation, route }) {
                                 style={[Styles.Button, Styles.ButtonHor, Styles.Confirm]}
                                 onPress={() => {
                                     setTasksModalVisible(!tasksModalVisible),
-                                    setTasksToGroup()
+                                    setTasksToGroup(),
+                                    calculateGroupSize()
                                 }}
                             >
                                 <Text style={Styles.ButtonText}>Save</Text>
@@ -356,28 +351,7 @@ export function GroupTasker({ navigation, route }) {
             >
                 <View style={Styles.ModalRoot}>
                     <View style={Styles.ModalContainer}>
-                        <Text style={Styles.InputHeader}>Team size</Text>
-                        <View style={Styles.NumberInputContainer}>
-                            <Pressable
-                                disabled={decrementButtonState}
-                                style={[Styles.NumberInputButton, Styles.NumberInputButtonLeft]}
-                                onPress={() => setStateGroupSize(groupSize - 1)}
-                            >
-                                <Entypo name="minus" size={24} color="white" />
-                            </Pressable>
-                            <TextInput
-                                style={[Styles.Input, Styles.NumberInput]}
-                                keyboardType='numeric'
-                                value={groupSize}
-                            />
-                            <Pressable
-                                disabled={incrementButtonState}
-                                style={[Styles.NumberInputButton, Styles.NumberInputButtonRight]}
-                                onPress={() => setStateGroupSize(groupSize + 1)}
-                            >
-                                <Entypo name="plus" size={24} color="white" />
-                            </Pressable>
-                        </View>
+                        <Text style={Styles.InputHeader}>Draw teams</Text>
                         <View style={Styles.ButtonContainer}>
                             <Pressable 
                                 style={[Styles.Button, Styles.ButtonHorAlt, Styles.Cancel]}
