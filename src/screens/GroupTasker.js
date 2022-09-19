@@ -117,7 +117,6 @@ export function GroupTasker({ navigation, route }) {
     };
 
     // Draw random teams and assign task and members
-    // TODO: This could use some cleaning
     const drawTeams = () => {
         let selectedTeams = [];
         let members = [];
@@ -125,7 +124,7 @@ export function GroupTasker({ navigation, route }) {
         for (let i = 0; i < tasks.length; i++) {
             for (let j = 0; j < groupSize; j++) {
                 let selectableParticipants = participants.filter(obj => obj.selectedToTeam == false);
-                let r = Math.floor(Math.random() * selectableParticipants.length);
+                let r = getRandom(selectableParticipants.length);
                 let participantIndex = participants.findIndex(obj => obj.id == selectableParticipants[r].id);
 
                 members.push(selectableParticipants[r].name);
@@ -134,10 +133,13 @@ export function GroupTasker({ navigation, route }) {
             selectedTeams = [...selectedTeams, {title: tasks[i].title, members: members}];
             members = [];
         }
+
         let selectableParticipants = participants.filter(obj => obj.selectedToTeam == false);
+        
+        // Assign participants that were not added during the first drawing randomly to the existing teams 
         if (selectableParticipants.length > 0) {
             for (let i = 0; i < selectableParticipants.length; i++) {
-                let r = Math.floor(Math.random() * selectedTeams.length);
+                let r = getRandom(selectedTeams.length);
                 let participantIndex = participants.findIndex(obj => obj.id == selectableParticipants[i].id);
 
                 selectedTeams[r].members.push(selectableParticipants[i].name);
@@ -168,6 +170,11 @@ export function GroupTasker({ navigation, route }) {
         catch (e) {
             onsole.log("Something went wrong while saving the groups: " + e);
         }
+    };
+
+    // returns random 
+    const getRandom = (max) => {
+        return Math.floor(Math.random() * max);
     };
 
     return (
